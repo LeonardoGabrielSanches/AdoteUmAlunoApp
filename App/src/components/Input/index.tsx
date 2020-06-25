@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import {TextInput} from 'react-native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 import styles from './styles';
-import {colors} from '../../theme/colors';
 
 type NewInputProps = {
   label?: string;
@@ -14,7 +12,6 @@ type NewInputProps = {
   editable?: boolean;
   onChangeText?: (e: any) => void;
   onChange?: (e: any) => void;
-  width?: string;
   autoFocus?: boolean;
   onBlur?: (e: any) => void;
   maxLength?: number;
@@ -28,7 +25,6 @@ export default function Input({
   editable = true,
   onChangeText,
   onChange,
-  width,
   autoFocus,
   onBlur,
   maxLength = 254,
@@ -39,18 +35,8 @@ export default function Input({
       autoFocus={autoFocus}
       style={
         focused
-          ? [
-              {width: width ? wp(width) : wp('15%')},
-              styles.genericContainer,
-              styles.genericContainerFocused,
-            ]
-          : [
-              {width: width ? wp(width) : wp('15%')},
-              styles.genericContainer,
-              {
-                backgroundColor: editable ? colors.darkRed : colors.red,
-              },
-            ]
+          ? [styles.genericContainer, styles.genericContainerFocused]
+          : [styles.genericContainer]
       }
       placeholder={placeholder}
       secureTextEntry={type === 'password'}

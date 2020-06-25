@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import {Text, View} from 'react-native';
 
-import Button from '../../components/Button';
+import NewButton from '../../components/Button';
 import styles from './styles';
 import Input from '../../components/Input';
 import {Api} from '../../service/api';
 
-const Login: React.FC = (props: any) => {
+const Login: React.FC = () => {
   const [userName, setUserName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loginError, setLoginError] = useState<string>('');
@@ -16,17 +16,32 @@ const Login: React.FC = (props: any) => {
       username: userName,
       password: password,
     });
-    setLoginError(response);
+
+    if (!response) {
+      setLoginError('Usuário e/ou senha inválido(s)');
+    }
   }
 
   return (
-    <View style={styles.view}>
-      <Text style={styles.text}>Informe seu usuário</Text>
-      <Input value={userName} onChangeText={setUserName} width={'50'} />
-      <Text style={styles.text}>Informe sua senha</Text>
-      <Input value={password} onChangeText={setPassword} width={'50'} />
-      <Text>{loginError}</Text>
-      <Button title={'Logar'} onPress={handleLogin} width={100} />
+    <View style={styles.container}>
+      <View style={styles.view}>
+        <Text style={styles.text}>Usuário</Text>
+        <Input value={userName} onChangeText={setUserName} />
+        <Text style={styles.text}>Senha</Text>
+        <Input value={password} onChangeText={setPassword} />
+        <Text>{loginError}</Text>
+        <NewButton title={'Logar'} onPress={handleLogin} primary={true} />
+        <View style={styles.newUserView}>
+          <Text>Não tem uma conta?</Text>
+          <Text
+            style={styles.newUserText}
+            onPress={() => {
+              setLoginError('2');
+            }}>
+            Clique aqui
+          </Text>
+        </View>
+      </View>
     </View>
   );
 };

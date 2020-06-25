@@ -1,21 +1,20 @@
 import {StyleSheet} from 'react-native';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 import {colors} from '../../theme/colors';
 
 const styles = StyleSheet.create({
   genericContainer: {
-    backgroundColor: 'white',
-    borderColor: colors.darkRed,
     borderWidth: 1,
-    color: colors.black,
     paddingHorizontal: wp('1%'),
+    width: wp('65%'),
+    height: hp('6.5%'),
   },
   genericContainerFocused: {
-    borderColor: colors.red,
-  },
-  disabledInput: {
-    backgroundColor: 'white',
+    borderColor: colors.lightGray,
   },
 });
 

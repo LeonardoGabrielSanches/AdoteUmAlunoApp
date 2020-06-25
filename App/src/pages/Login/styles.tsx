@@ -1,13 +1,21 @@
 import {StyleSheet} from 'react-native';
+import {colors} from '../../theme/colors';
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
+  container: {flex: 1},
   view: {
-    width: 150,
+    flex: 1,
     justifyContent: 'center',
-    alignSelf: 'center',
-    alignContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.white,
   },
-  text: {fontSize: 15, alignSelf: 'center'},
+  newUserView: {flexDirection: 'row'},
+  newUserText: {paddingLeft: wp('0.5%')},
+  text: {fontSize: 20, paddingBottom: hp('1%')},
 });
 
 export default styles;

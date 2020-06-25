@@ -7,11 +7,10 @@ type ButtonProps = {
   title: string;
   onPress: () => void;
   primary?: boolean;
-  width?: number;
   disabled?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = ({
+const NewButton: React.FC<ButtonProps> = ({
   title,
   onPress,
   primary,
@@ -32,4 +31,4 @@ const Button: React.FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export default NewButton;
