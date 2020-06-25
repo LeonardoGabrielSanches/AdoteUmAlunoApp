@@ -1,13 +1,18 @@
-import {Entity, PrimaryColumn, Column} from 'typeorm';
 import Validation from './Validation';
+
+import { Entity, PrimaryColumn, Column, OneToOne } from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class Login {
-  @PrimaryColumn({unique: true})
+  @PrimaryColumn({ unique: true })
   username: string;
 
   @Column()
   password: string;
+
+  @OneToOne(type => User, user => user.login) 
+  user: User;
 
   constructor(username: string, password: string) {
     this.username = username;
