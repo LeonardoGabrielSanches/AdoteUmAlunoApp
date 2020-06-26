@@ -28,4 +28,18 @@ export class Api {
 
     return error;
   }
+
+  async createUser(body: any): Promise<any> {
+    let message = '';
+
+    await this.api
+      .post('/user', body)
+      .then()
+      .catch((e: any) => {
+        message = e.data.error;
+        return message;
+      });
+
+    return undefined;
+  }
 }

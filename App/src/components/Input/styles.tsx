@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp('1%'),
     width: wp('65%'),
     height: hp('6.5%'),
+    marginBottom: hp('1%'),
   },
   genericContainerFocused: {
     borderColor: colors.lightGray,

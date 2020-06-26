@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Image} from 'react-native';
 
 import NewButton from '../../components/Button';
 import styles from './styles';
 import Input from '../../components/Input';
 import {Api} from '../../service/api';
+import {routesNames} from '../../routes/routesNames';
 
-const Login: React.FC = () => {
+const Login: React.FC = (props: any) => {
   const [userName, setUserName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [loginError, setLoginError] = useState<string>('');
@@ -22,9 +23,12 @@ const Login: React.FC = () => {
     }
   }
 
+  const image = require('../../assets/icon.png');
+
   return (
     <View style={styles.container}>
       <View style={styles.view}>
+        <Image source={image} style={{width: 100, height: 100}} />
         <Text style={styles.text}>Usuário</Text>
         <Input value={userName} onChangeText={setUserName} />
         <Text style={styles.text}>Senha</Text>
@@ -36,7 +40,7 @@ const Login: React.FC = () => {
           <Text
             style={styles.newUserText}
             onPress={() => {
-              setLoginError('2');
+              props.navigation.navigate(routesNames.register);
             }}>
             Clique aqui
           </Text>

@@ -4,7 +4,6 @@ import {TextInput} from 'react-native';
 import styles from './styles';
 
 type NewInputProps = {
-  label?: string;
   placeholder?: string | undefined;
   type?: string;
   keyboardType?: 'default' | 'numeric';

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   newUserView: {flexDirection: 'row'},
-  newUserText: {paddingLeft: wp('0.5%')},
+  newUserText: {paddingLeft: wp('0.5%'), color: colors.blue},
   text: {fontSize: 20, paddingBottom: hp('1%')},
 });
 
