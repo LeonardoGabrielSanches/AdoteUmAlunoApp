@@ -9,7 +9,14 @@ import Validation from './Validation';
 class User {
      validation : Validation;
 
-     constructor(firstName: string, lastName: string, age: number, email: string, course: string, biography: string, phone: string, login: Login) {
+     constructor(firstName: string,
+       lastName: string,
+       age: number,
+       email: string,
+       course: string,
+       biography: string,
+       phone: string,
+       login: Login) {
        this.firstName = firstName;
        this.lastName = lastName;
        this.age = age;
@@ -25,7 +32,7 @@ class User {
      }
 
      isUserValid() {
-       if (this.firstName.length <= 0) { this.validation.setMessage('Nome não informado'); }
+       if (!this.firstName) { this.validation.setMessage('Nome não informado'); }
 
        if (this.login.validation.invalid) { this.validation.setMessage(this.login.validation.getErrorMessage()); }
      }
