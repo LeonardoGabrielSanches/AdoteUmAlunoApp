@@ -1,20 +1,18 @@
 import { getRepository } from 'typeorm';
-import { Login } from '../entity/Login';
+import Login from '../entity/Login';
 import Validation from '../entity/Validation';
 
 class LoginService {
-
-  _validation: Validation;
+  validation: Validation;
 
   constructor() {
-    this._validation = new Validation();
+    this.validation = new Validation();
   }
 
-  async getLogin(login: Login){
+  async getLogin(login: Login) {
     this.loginIsValid(login);
 
-    if(this._validation.invalid)
-      return;
+    if (this.validation.invalid) return;
 
     const logged = await getRepository(Login).findOne({
       username: login.username,
@@ -22,15 +20,13 @@ class LoginService {
     });
 
     if (!logged) {
-      this._validation.setMessage('Usuário ou senha inválido');
-      return;
+      this.validation.setMessage('Usuário ou senha inválido');
     }
   }
-  loginIsValid(login: Login) {
-    if (login._validation.invalid)
-      this._validation.setMessage(login._validation.getErrorMessage());
-  }
 
+  loginIsValid(login: Login) {
+    if (login.validation.invalid) { this.validation.setMessage(login.validation.getErrorMessage()); }
+  }
 }
 
 export default LoginService;
