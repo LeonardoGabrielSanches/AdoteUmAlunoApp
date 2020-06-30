@@ -1,18 +1,19 @@
 class Validation {
   public invalid: boolean;
-  private message: string;
+  private messages: string[];
 
   constructor() {
+    this.messages = new Array();
     this.invalid = false;
   }
 
   setMessage(message: string) {
-    this.message = message;
+    this.messages.push(message);
     this.invalid = true;
   }
 
-  getMessage() {
-    return this.message;
+  getErrorMessage() {
+      return this.messages[0];
   }
 }
 

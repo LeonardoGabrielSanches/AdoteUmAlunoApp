@@ -4,10 +4,17 @@ import Validation from '../entity/Validation';
 
 class LoginService {
 
- 
+  _validation: Validation;
 
-  async getLogin(login: Login): Promise<Validation> {
-    let validation = new Validation();
+  constructor() {
+    this._validation = new Validation();
+  }
+
+  async getLogin(login: Login){
+    this.loginIsValid(login);
+
+    if(this._validation.invalid)
+      return;
 
     const logged = await getRepository(Login).findOne({
       username: login.username,
@@ -15,12 +22,15 @@ class LoginService {
     });
 
     if (!logged) {
-      validation.setMessage('Usuário ou senha inválido');
-      return validation;
+      this._validation.setMessage('Usuário ou senha inválido');
+      return;
     }
-    return validation;
+  }
+  loginIsValid(login: Login) {
+    if (login._validation.invalid)
+      this._validation.setMessage(login._validation.getErrorMessage());
   }
 
 }
 
-export default new LoginService();
+export default LoginService;

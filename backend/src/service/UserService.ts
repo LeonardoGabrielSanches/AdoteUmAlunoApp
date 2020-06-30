@@ -5,42 +5,50 @@ import { Login } from '../entity/Login';
 import LoginService from './LoginService';
 
 class UserService {
+  _validation: Validation;
 
-    async saveUser(user: User): Promise<User> {
-        const createdLogin = await getRepository(User).save(user);
-        await getRepository(Login).save(user.login);
-        return createdLogin;
+  constructor() {
+    this._validation = new Validation();
+  }
+
+  async saveUser(user: User): Promise<User> {
+    if (user._validation.invalid) {
+      this._validation.setMessage(user._validation.getErrorMessage());
+      return;
     }
 
+    await this.verifyUsernIsEqual(user);
 
-    async verifyUsernIsEqual(user: User): Promise<Validation> {
-        let validation = new Validation();
-
-        const users = await getRepository(User).find();
-
-        let field = '';
-
-        const usernameAlredyExists = users.filter(userFilter => userFilter.login.username === user.login.username);
-
-        if(usernameAlredyExists.length > 0)
-          field = 'usuário'
-
-        const emailAlredyExists = users.filter(userFilter => userFilter.login.username === user.login.username);
-
-        if(emailAlredyExists.length > 0)
-          field = 'email'
-
-        if(field !== '')
-          validation.setMessage(`O campo ${field} já existe.`); 
-
-        if (validation.invalid) {
-            return validation;
-        }
-
-        return validation;
-
+    if (this._validation.invalid) {
+      return;
     }
+
+    const createdUser = await getRepository(User).save(user);
+    await getRepository(Login).save(user.login);
+    return createdUser;
+  }
+
+
+  async verifyUsernIsEqual(user: User) {
+
+    const users = await getRepository(User).find();
+
+    let field = '';
+
+    const usernameAlredyExists = users.filter(userFilter => userFilter.login.username === user.login.username);
+
+    if (usernameAlredyExists.length > 0)
+      field = 'usuário'
+
+    const emailAlredyExists = users.filter(userFilter => userFilter.login.username === user.login.username);
+
+    if (emailAlredyExists.length > 0)
+      field = 'email'
+
+    if (field !== '')
+      this._validation.setMessage(`O ${field} já foi cadastrado.`);
+  }
 
 }
 
-export default new UserService();
+export default UserService;

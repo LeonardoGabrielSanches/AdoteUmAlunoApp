@@ -1,37 +1,28 @@
-import { getRepository } from 'typeorm';
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { User } from '../entity/User';
-import Validation from '../entity/Validation';
 import UserService from '../service/UserService';
 import { Login } from '../entity/Login';
-import { Console } from 'console';
 
 
-  export const Create = async (request: Request, response: Response) => {
-    const { firstName, lastName, age, email, course, biography, phone, username, password } = request.body;
-    try {
+export const Create = async (request: Request, response: Response) => {
+  const { firstName, lastName, age, email, course, biography, phone, username, password } = request.body;
+  try {
+    var userService = new UserService();
 
-      let validation = new Validation();
+    const login = new Login(username, password);
 
-      const login = new Login(username, password);
+    const user = new User(firstName, lastName, age, email, course, biography, phone, login);
 
-      const user = new User(firstName, lastName, age, email, course, biography, phone, login);
+    const createdUser = await userService.saveUser(user);
 
-      console.log(user);
-      
-      validation = await UserService.verifyUsernIsEqual(user);
+    if (userService._validation.invalid)
+      return response.status(400).json({ error: userService._validation.getErrorMessage() })
 
-      if (validation.invalid)
-        return response.json({ error: validation.getMessage() });
+    return response.status(201).json(createdUser);
 
-      const createdUser = await UserService.saveUser(user);
-
-      return response.status(200).send();
-    } catch {
-      return response.json({ error: 'error' });
-    }
-
-
+  } catch (ex) {
+    return response.json({ error: ex });
   }
+}
 
 

@@ -3,7 +3,8 @@ import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn} from "type
 import Validation from "./Validation";
 
 @Entity()
-export class User {
+export class User{
+     _validation : Validation;
 
     constructor(firstName: string,lastName: string, age: number, email: string, course: string, biography: string, phone: string, login: Login) {
         this.firstName = firstName;
@@ -14,7 +15,19 @@ export class User {
         this.biography = biography;
         this.phone = phone;
         this.login = login;
+
+        this._validation = new Validation();   
+
+        this.isUserValid();
       }
+
+    isUserValid(){
+      if(this.firstName.length <= 0)
+        this._validation.setMessage('Nome não informado');  
+      
+      if(this.login._validation.invalid)
+          this._validation.setMessage(this.login._validation.getErrorMessage());
+    }
 
     @PrimaryGeneratedColumn()
     id: number;

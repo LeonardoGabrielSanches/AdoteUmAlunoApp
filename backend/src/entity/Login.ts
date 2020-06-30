@@ -5,6 +5,16 @@ import { User } from "./User";
 
 @Entity()
 export class Login {
+  _validation : Validation;
+
+  constructor(username: string, password: string) {
+    this.username = username;
+    this.password = password;
+
+    this._validation = new Validation();
+    this.isEmpty();
+  }
+
   @PrimaryColumn({ unique: true })
   username: string;
 
@@ -14,15 +24,10 @@ export class Login {
   @OneToOne(type => User, user => user.login) 
   user: User;
 
-  constructor(username: string, password: string) {
-    this.username = username;
-    this.password = password;
-  }
-
-  isEmpty(validation: Validation): void {
+  isEmpty() {
     if (this.username.length === 0)
-      validation.setMessage('Usuario não informado');
+      this._validation.setMessage('Usuario não informado');
     else if (this.password.length === 0)
-      validation.setMessage('Senha não informada');
+      this._validation.setMessage('Senha não informada');
   }
 }
