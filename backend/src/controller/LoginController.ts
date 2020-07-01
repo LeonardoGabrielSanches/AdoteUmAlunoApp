@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import LoginService from '../service/LoginService';
-import Login from '../entity/Login';
+import LoginModel from '../models/Login';
 
 export const LogIn = async (request: Request, response: Response) => {
   const { username, password } = request.body;
   try {
     const loginService = new LoginService();
 
-    const login = new Login(username, password);
+    const login = new LoginModel(username, password);
 
     await loginService.getLogin(login);
 

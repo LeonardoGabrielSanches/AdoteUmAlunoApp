@@ -18,7 +18,7 @@ const Register: React.FC = () => {
 
   async function handleRegisterButton() {
     const objectParam = {
-      name: name,
+      firstName: name,
       lastName: lastname,
       age: +age,
       email: email,

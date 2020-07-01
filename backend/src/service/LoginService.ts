@@ -1,6 +1,7 @@
 import { getRepository } from 'typeorm';
 import Login from '../entity/Login';
-import Validation from '../entity/Validation';
+import LoginModel from '../models/Login';
+import Validation from '../models/Validation';
 
 class LoginService {
   validation: Validation;
@@ -9,7 +10,7 @@ class LoginService {
     this.validation = new Validation();
   }
 
-  async getLogin(login: Login) {
+  async getLogin(login: LoginModel) {
     this.loginIsValid(login);
 
     if (this.validation.invalid) return;
@@ -24,7 +25,7 @@ class LoginService {
     }
   }
 
-  loginIsValid(login: Login) {
+  loginIsValid(login: LoginModel) {
     if (login.validation.invalid) { this.validation.setMessage(login.validation.getErrorMessage()); }
   }
 }

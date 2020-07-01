@@ -1,8 +1,9 @@
 import { getRepository } from 'typeorm';
-import Validation from '../entity/Validation';
-import User from '../entity/User';
+
 import Login from '../entity/Login';
-import LoginService from './LoginService';
+import User from '../entity/User';
+import UserModel from '../models/User';
+import Validation from '../models/Validation';
 
 class UserService {
   validation: Validation;
@@ -11,24 +12,32 @@ class UserService {
     this.validation = new Validation();
   }
 
-  async saveUser(user: User): Promise<User> {
+  async saveUser(user: UserModel): Promise<User> {
     if (user.validation.invalid) {
       this.validation.setMessage(user.validation.getErrorMessage());
       return user;
     }
 
-    await this.verifyUsernIsEqual(user);
+    // await this.verifyUsernIsEqual(user);
 
     if (this.validation.invalid) {
       return user;
     }
 
-    const createdUser = await getRepository(User).save(user);
+    const createdUser = await getRepository(User).save({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      age: user.age,
+      email: user.email,
+      course: user.course,
+      biography: user.biography,
+      phone: user.phone,
+    });
     await getRepository(Login).save(user.login);
     return createdUser;
   }
 
-  async verifyUsernIsEqual(user: User) {
+  async verifyUsernIsEqual(user: UserModel) {
     const users = await getRepository(User).find();
 
     let field = '';

@@ -1,5 +1,6 @@
 class Validation {
   public invalid: boolean;
+
   private messages: string[];
 
   constructor() {
@@ -13,7 +14,7 @@ class Validation {
   }
 
   getErrorMessage() {
-      return this.messages[0];
+    return this.messages[0];
   }
 }
 
