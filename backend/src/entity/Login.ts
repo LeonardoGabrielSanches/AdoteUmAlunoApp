@@ -1,5 +1,5 @@
 import {
-  Entity, PrimaryColumn, Column, OneToOne,
+  Entity, PrimaryColumn, Column, OneToOne, JoinColumn,
 } from 'typeorm';
 // eslint-disable-next-line import/no-cycle
 import User from './User';
@@ -17,7 +17,7 @@ class Login {
   @Column()
   password: string;
 
-  @OneToOne((type) => User, (user) => user.login)
+  @OneToOne((type) => User)
   user: User;
 }
 

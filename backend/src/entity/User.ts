@@ -1,5 +1,5 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn,
+  Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn,
 } from 'typeorm';
 // eslint-disable-next-line import/no-cycle
 import Login from './Login';
@@ -12,8 +12,7 @@ class User {
     email: string,
     course: string,
     biography: string,
-    phone: string,
-    login: Login) {
+    phone: string) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
@@ -21,7 +20,6 @@ class User {
     this.course = course;
     this.biography = biography;
     this.phone = phone;
-    this.login = login;
   }
 
     @PrimaryGeneratedColumn()
@@ -47,6 +45,10 @@ class User {
 
     @Column()
     phone: string;
+
+    @OneToOne((type) => Login)
+    @JoinColumn()
+    login : Login;
 }
 
 export default User;

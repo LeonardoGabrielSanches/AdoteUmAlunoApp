@@ -15,13 +15,24 @@ export const Create = async (request: Request, response: Response) => {
     const user = new UserModel(firstName, lastName, age, email, course, biography, phone, login);
 
     const createdUser = await userService.saveUser(user);
-    console.log(createdUser);
+
     if (userService.validation.invalid) { return response.status(400).json({ error: userService.validation.getErrorMessage() }); }
 
     return response.status(201).json(createdUser);
   } catch (ex) {
-    return response.json({ error: ex }).send();
+    return response.json({ error: ex }).status(400).send();
   }
 };
 
-export const ErrorFree = () => {};
+export const GetAllFiltered = async (request: Request, response: Response) => {
+  const { login } = request.params;
+  try {
+    const userService = new UserService();
+
+    const users = await userService.getAllFiltered(login);
+
+    return response.json(users).status(200);
+  } catch (ex) {
+    return response.json({ error: ex }).status(400).send();
+  }
+};
