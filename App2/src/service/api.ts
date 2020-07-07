@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-class Api {
+export class Api {
   private api: any;
 
   constructor() {
     this.api = axios.create({
-      baseURL: 'http://10.0.2.2:3333', // Trocar pra api do expo
+      baseURL: 'http://10.0.2.2:3333',
     });
   }
 
@@ -22,7 +22,8 @@ class Api {
         }
       })
       .catch((e: any) => {
-        error = e.data.error.response;
+        console.log(e.data.error);
+        error = e.data;
       });
 
     return error;
@@ -33,15 +34,22 @@ class Api {
 
     await this.api
       .post('/user', body)
-      .then(// Cria algo de sucesso
-      )
+      .then()
       .catch((e: any) => {
-        message = e.data.error.response;
+        message = e.data.error;
         return message;
       });
 
     return undefined;
   }
-}
 
-export default Api;
+  async get(path: string) {
+    let users: any[];
+    users = [];
+    await this.api.get(path).then((response: any) => {
+      users = response.data;
+    });
+
+    return users;
+  }
+}

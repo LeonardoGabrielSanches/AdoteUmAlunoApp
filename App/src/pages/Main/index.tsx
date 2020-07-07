@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 
-const Login: React.FC = () => <View />;
+const Main: React.FC = () => <View />;
 
-export default Login;
+export default Main;

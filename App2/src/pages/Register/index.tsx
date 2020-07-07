@@ -1,7 +1,10 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text} from 'react-native';
+import styles from './styles';
+import Input from '../../components/Input';
+import NewButton from '../../components/Button';
+import {Api} from '../../service/api';
 
-<<<<<<< Updated upstream
 const Register: React.FC = () => {
   const [name, setName] = useState<string>('');
   const [lastname, setLastname] = useState<string>('');
@@ -15,7 +18,7 @@ const Register: React.FC = () => {
 
   async function handleRegisterButton() {
     const objectParam = {
-      name: name,
+      firstName: name,
       lastName: lastname,
       age: +age,
       email: email,
@@ -73,8 +76,5 @@ const Register: React.FC = () => {
     </View>
   );
 };
-=======
-const Register:React.FC = () => <View />;
->>>>>>> Stashed changes
 
 export default Register;
