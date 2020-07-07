@@ -19,6 +19,7 @@ class Login {
 
   @OneToOne((type) => User, (user) => user.login)
   user: User;
+  
 }
 
 export default Login;

@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import LoginModel from './Login';
 import Validation from './Validation';
+import Subject from '../entity/Subject';
 
 class UserModel {
        validation : Validation;
@@ -50,6 +51,8 @@ class UserModel {
       phone: string;
 
       login: LoginModel;
+
+      subjects: Subject[];
 }
 
 export default UserModel;

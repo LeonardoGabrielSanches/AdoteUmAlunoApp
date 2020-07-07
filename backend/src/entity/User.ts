@@ -1,8 +1,9 @@
 import {
-  Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn,
+  Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToMany, JoinTable,
 } from 'typeorm';
 // eslint-disable-next-line import/no-cycle
 import Login from './Login';
+import Subject from './Subject';
 
 @Entity()
 class User {
@@ -47,6 +48,15 @@ class User {
 
     @Column()
     phone: string;
+
+    @OneToOne((type) => Login)
+    @JoinColumn()
+    login : Login;
+
+    @ManyToMany(type => Subject, subject => subject.users)
+    @JoinTable()
+    subjects: Subject[];
 }
 
 export default User;
+
