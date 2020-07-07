@@ -1,5 +1,6 @@
 import { getRepository } from "typeorm";
-import Subject from "../entity/Subject";
+import Subject from "../models/Subject";
+
 
 class SubjectRepository {
 
@@ -8,6 +9,6 @@ class SubjectRepository {
     const logged = await getRepository(Subject).findOne({name: subject.name,users: subject.users});
 
     }
-
 }
 
+export default SubjectRepository;
