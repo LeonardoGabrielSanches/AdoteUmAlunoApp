@@ -53,9 +53,9 @@ class User {
     @JoinColumn()
     login : Login;
 
-    @ManyToMany(type => Subject, subject => subject.users)
-    @JoinTable()
-    subjects: Subject[];
+    // @ManyToMany(type => Subject, subject => subject.users)
+    // @JoinTable()
+    // subjects: Subject[];
 }
 
 export default User;

@@ -5,10 +5,9 @@ class SubjectModel {
 
     validation: Validation;
 
-    constructor(name: string, user: User[]) {
+    constructor(name: string) {
         this.name = name;
-        this.users = user;
-
+        
         this.validation = new Validation();
         this.isEmpty();
     }

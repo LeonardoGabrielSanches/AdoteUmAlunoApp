@@ -5,7 +5,6 @@ class Subject {
 
     constructor(name: string, user: User[]) {
         this.name = name;
-        this.users = user;
     }
 
     @PrimaryColumn({ unique: true })
@@ -14,8 +13,8 @@ class Subject {
     @Column()
     name: string;
 
-    @ManyToMany(type => User, user => user.subjects)
-    users: User[];
+    // @ManyToMany(type => User, user => user.subjects)
+    // users: User[];
 
 }
 export default Subject;

@@ -1,13 +1,16 @@
 import { getRepository } from "typeorm";
-import Subject from "../models/Subject";
+import Subject from "../entity/Subject";
+import SubjectModel from "../models/Subject";
 
 
 class SubjectRepository {
 
-    async getSubject(subject: Subject){
+    async getSubjects() : Promise<Subject[]>{
+        return await getRepository(Subject).find();
+    }
 
-    const logged = await getRepository(Subject).findOne({name: subject.name,users: subject.users});
-
+    async saveSubject(subject: SubjectModel) : Promise<Subject>{
+        return await getRepository(Subject).save(subject);
     }
 }
 
