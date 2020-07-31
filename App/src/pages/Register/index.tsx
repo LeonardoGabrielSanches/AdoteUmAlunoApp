@@ -1,80 +1,45 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from 'react'
+import { View, Button, KeyboardAvoidingView, Platform } from 'react-native'
+import StyledTextInput from '../../components/Layout/TextInput'
+import { styles } from './styles'
 
-<<<<<<< Updated upstream
-const Register: React.FC = () => {
-  const [name, setName] = useState<string>('');
-  const [lastname, setLastname] = useState<string>('');
-  const [age, setAge] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [course, setCourse] = useState<string>('');
-  const [biography, setBiography] = useState<string>(''); //Tem que ser maior
-  const [phone, setPhone] = useState<string>('');
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-
-  async function handleRegisterButton() {
-    const objectParam = {
-      name: name,
-      lastName: lastname,
-      age: +age,
-      email: email,
-      course: course,
-      biography: biography,
-      phone: phone,
-      username: username,
-      password: password,
-    };
-    console.log(objectParam);
-    const response = await new Api().createUser(objectParam);
-    console.log(response); //Rever a camada da api e também ver de fazer um modal padrão de erro
-  }
+const Register = (props : any) => {
+  const [name, setName] = useState<string>('')
+  const [age, setAge] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [course, setCourse] = useState<string>('')// Um modal picker talvez?
+  const [biography, setBiography] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   return (
-    <View>
-      <Text style={styles.title}>Realize seu cadastro</Text>
-      <View style={styles.container}>
-        <Input placeholder={'Nome'} value={name} onChangeText={setName} />
-        <Input
-          placeholder={'Último nome'}
-          value={lastname}
-          onChangeText={setLastname}
-        />
-        <Input
-          placeholder={'Idade'}
-          keyboardType="numeric"
-          value={age}
-          onChangeText={setAge}
-        />
-        <Input placeholder={'Email'} value={email} onChangeText={setEmail} />
-        <Input placeholder={'Telefone'} value={phone} onChangeText={setPhone} />
-        <Input placeholder={'Curso'} value={course} onChangeText={setCourse} />
-        <Input
-          placeholder={'Biografia'}
-          value={biography}
-          onChangeText={setBiography}
-        />
-        <Input
-          placeholder={'Nome de usuário'}
-          value={username}
-          onChangeText={setUsername}
-        />
-        <Input
-          placeholder={'Senha'}
-          value={password}
-          onChangeText={setPassword}
-        />
-        <NewButton
-          title={'Cadastrar'}
-          onPress={handleRegisterButton}
-          primary={true}
-        />
-      </View>
+    <View style={styles.container}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.registerContainer}>
+        <View style={styles.styledInput}>
+          <StyledTextInput value={name} setValue={setName} placeholder={'Nome'}/>
+        </View>
+        <View style={styles.styledInput}>
+          <StyledTextInput value={age} setValue={setAge} placeholder={'Idade'} keyboardType={'numeric'}/>
+        </View>
+        <View style={styles.styledInput}>
+          <StyledTextInput value={email} setValue={setEmail} placeholder={'Email'} keyboardType={'email-address'} />
+        </View>
+        <View style={styles.styledInput}>
+          <StyledTextInput value={course} setValue={setCourse} placeholder={'Curso'} />
+        </View>
+        <View style={styles.styledInput}>
+          <StyledTextInput value={username} setValue={setUsername} placeholder={'Usuario'} />
+        </View>
+        <View style={styles.styledInput}>
+          <StyledTextInput value={password} setValue={setPassword} placeholder={'Senha'} secureTextEntry keyboardType={'visible-password'}/>
+        </View>
+        <View style={styles.styledInput}>
+          <StyledTextInput value={'FAZER O POSSIVEL PRA SCROLLAR'} setValue={setBiography} placeholder={'Biografia'} multiline />
+        </View>
+        <Button onPress={() => {}} title={'Cadastrar'}/>
+      </KeyboardAvoidingView>
     </View>
-  );
-};
-=======
-const Register:React.FC = () => <View />;
->>>>>>> Stashed changes
+  )
+}
 
-export default Register;
+export default Register

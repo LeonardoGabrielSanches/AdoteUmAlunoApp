@@ -1,8 +1,11 @@
-import { AppRegistry } from 'react-native';
-import App from './src/index';
-import { expo } from './app.json';
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import Routes from './src/routes/index'
 
-// eslint-disable-next-line no-console
-console.disableYellowBox = true;
-
-AppRegistry.registerComponent(expo.name, () => App);
+export default function App () {
+  return (
+    <NavigationContainer>
+      <Routes />
+    </NavigationContainer>
+  )
+}

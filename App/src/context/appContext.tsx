@@ -1,5 +1,6 @@
-import React, { createContext, useState } from 'react';
-import { IUser } from '../models/User';
+import React, { createContext, useState } from 'react'
+// eslint-disable-next-line no-unused-vars
+import { IUser } from '../models/User'
 
 interface IAppContext{
     User: IUser;
@@ -8,24 +9,24 @@ interface IAppContext{
     SignOut: () => void;
 }
 
-const AppContext = createContext<IAppContext>({} as IAppContext);
+const AppContext = createContext<IAppContext>({} as IAppContext)
 
-const AppProvider: React.FC = ({ children } : any) => {
-  const [signed, setSigned] = useState<boolean>(false);
-  const [user, setUser] = useState<IUser>({} as IUser);
+export const AppProvider: React.FC = ({ children } : any) => {
+  const [signed, setSigned] = useState<boolean>(false)
+  const [user, setUser] = useState<IUser>({} as IUser)
 
-  const signIn = (loginUser:IUser) => { setUser(loginUser); setSigned(true); };
+  const signIn = (loginUser:IUser) => { setUser(loginUser); setSigned(true) }
 
-  const signOut = () => {};
+  const signOut = () => {}
 
   return (
     <AppContext.Provider value={{
-      User: user, Signed: signed, SignIn: signIn, SignOut: signOut,
+      User: user, Signed: signed, SignIn: signIn, SignOut: signOut
     }}
     >
       {children}
     </AppContext.Provider>
-  );
-};
+  )
+}
 
-export default AppContext;
+export default AppContext
